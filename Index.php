@@ -66,6 +66,8 @@ if (isset($_POST['entrar'])) {
     <button type="submit" name="entrar">Entrar</button>
 
   </form>
+  <br>
+  <p>Não possui uma conta? <a href="CreateAccount.php">Criar conta</a></p>
 </body>
 
 </html>
