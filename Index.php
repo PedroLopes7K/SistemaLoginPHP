@@ -1,6 +1,40 @@
 <?php
+// conexão
+require_once 'dbConnection.php';
+
+// sessão
+session_start();
+
 if (isset($_POST['entrar'])) {
-  echo "Entrou!";
+  $erros = array();
+  $login = mysqli_escape_string($connect, $_POST['login']);
+  $senha = mysqli_escape_string($connect, $_POST['senha']);
+
+  if (empty($login) or empty($senha)) {
+    $erros[] = "<li> Login e Senha devem ser preenchidos! </li><br>";
+  } else {
+    $sql = "SELECT login FROM usuarios WHERE login = '$login'";
+    $resultado = mysqli_query($connect, $sql);
+
+    if (mysqli_num_rows($resultado) > 0) {
+      $senha = md5($senha);
+      $sql = "SELECT * FROM usuarios WHERE login = '$login' AND senha = '$senha'";
+      $resultado = mysqli_query($connect, $sql);
+
+      if (mysqli_num_rows($resultado) == 1) {
+        $dados = mysqli_fetch_array($resultado);
+        mysqli_close($connect);
+        $_SESSION['logado'] = true;
+        $_SESSION['idUsuario'] = $dados['id'];
+        $_SESSION['nome'] = $dados['nome'];
+        header('Location: Home.php');
+      } else {
+        $erros[] = "<li> Usuário e Senha não conferem! </li> <br>";
+      }
+    } else {
+      $erros[] = "<li> Usuário não encontrado! </li> <br>";
+    }
+  }
 }
 ?>
 
@@ -17,6 +51,15 @@ if (isset($_POST['entrar'])) {
 
 <body>
   <h1>Login</h1>
+  <?php
+  if (!empty($erros)) {
+    foreach ($erros as  $erro) {
+      echo $erro;
+    }
+    echo "<hr>";
+  }
+
+  ?>
   <form action="" method="POST">
     Login: <input type="text" name="login"><br>
     Senha: <input type="password" name="senha"><br>
