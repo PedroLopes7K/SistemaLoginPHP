@@ -15,23 +15,12 @@ if (isset($_POST['cadastrar'])) {
     } else {
       $qry = "INSERT INTO usuarios (nome, login, senha) VALUES ('$nome', '$log', '$password')";
       mysqli_query($connect, $qry);
-      echo "Conta criada com sucesso!";
-      header('Location: Index.php');
-      // if ($connect->query($query) === true) {
-      //   echo "Conta criada com sucesso!";
-      //   header('Location: Index.php');
-      // } else {
-      //   echo "Error: " . $query . "<br>" . $connect->error;
-      // }
+      echo "<h1>Conta criada com sucesso!</h1>";
+      // header('Location: Index.php');
     }
   }
 }
-
-
 ?>
-
-
-
 <!DOCTYPE html>
 <html lang="en">
 

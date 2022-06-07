@@ -7,6 +7,7 @@ session_start();
 
 if (isset($_POST['entrar'])) {
   $erros = array();
+  // essa função impede a injeção de comandos html, sql nos campos de input
   $login = mysqli_escape_string($connect, $_POST['login']);
   $senha = mysqli_escape_string($connect, $_POST['senha']);
 

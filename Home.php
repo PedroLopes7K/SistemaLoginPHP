@@ -5,8 +5,7 @@ require_once 'dbConnection.php';
 // sessão
 session_start();
 
-// verificação
-
+// verificaçã se nãp estiver logado
 if (!isset($_SESSION['logado'])) {
   header('Location: Index.php');
 }
@@ -27,6 +26,12 @@ if (!isset($_SESSION['logado'])) {
   <h1>Olá <?php echo $_SESSION['nome']; ?></h1>
 
   <a href="Logout.php">SAIR</a>
+  </br>
+  </br>
+
+
+  <a href="deleteAccount.php">DELETAR CONTA</a>
+
 </body>
 
 </html>
